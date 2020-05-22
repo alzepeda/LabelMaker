@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import model.Case;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 public class SetupController{
 
@@ -57,7 +58,7 @@ public class SetupController{
     }
 
     public void setupDoneButtonPushed(ActionEvent event) throws IOException{
-        String seriesAndYear;
+        String seriesAndYear = "";
         int initialCaseNumber;
         if(customChecked.isSelected()){
             seriesAndYear = seriesAndYearTextField.getText();
@@ -66,20 +67,55 @@ public class SetupController{
                 Case.seriesAndYear = seriesAndYear;
                 Case.caseNumber = initialCaseNumber;
                 System.out.println(Case.seriesAndYear + "-" + Case.caseNumber);
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(Main.class.getResource("../view/Case.fxml"));
-                AnchorPane root = loader.load();
-
-                // Show the scene containing the root layout.
-                Scene scene = new Scene(root);
-
-                Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-                window.setScene(scene);
-                window.show();
-
+                startCases(event);
             }catch(NumberFormatException e){
                 System.out.println("Error: "+ e.getMessage());
             }
+        }else{
+            if(hermanButton.isSelected()){
+                seriesAndYear += "HP";
+            }else{
+                if(delSolButton.isSelected()){
+                    seriesAndYear += "D";
+                }else if(foundationButton.isSelected()) {
+                    seriesAndYear += "F";
+                }else if(solarisButton.isSelected()){
+                    seriesAndYear += "S";
+                }else if(kimbleButton.isSelected()){
+                    seriesAndYear += "K";
+                }
+                if(surgicalButton.isSelected()){
+                    seriesAndYear += "S";
+                }else if(hematologyButton.isSelected()) {
+                    seriesAndYear += "H";
+                }else if(cytologyButton.isSelected()){
+                    seriesAndYear += "C";
+                }else if(fineNeedleButton.isSelected()){
+                    seriesAndYear += "F";
+                }else if(boneMarrowButton.isSelected()){
+                    seriesAndYear += "B";
+                }else if(autopsyButton.isSelected()){
+                    seriesAndYear += "A";
+                }
+            }
+            seriesAndYear += Calendar.getInstance().get(Calendar.YEAR)%100;
+            Case.seriesAndYear = seriesAndYear;
+            initialCaseNumber = Case.getCaseNumber(seriesAndYear);
+            Case.caseNumber = initialCaseNumber;
+            startCases(event);
         }
+    }
+
+    void startCases(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("../view/Case.fxml"));
+        AnchorPane root = loader.load();
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(root);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 }

@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Main extends Application {
+public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
@@ -18,7 +18,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("../view/Setup.fxml"));
+        loader.setLocation(MainApp.class.getResource("../view/Setup.fxml"));
         root = loader.load();
 
         // Show the scene containing the root layout.

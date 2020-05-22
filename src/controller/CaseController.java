@@ -42,17 +42,10 @@ public class CaseController{
     }
 
     void initializeSpinners(){
-        SpinnerValueFactory<Integer> cassettesValueFactory = new SpinnerValueFactory<Integer>() {
-            @Override
-            public void decrement(int steps) {
-
-            }
-
-            @Override
-            public void increment(int steps) {
-
-            }
-        };
+        SpinnerValueFactory<Integer> containerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,30,1);
+        this.containerSpinner.setValueFactory(containerValueFactory);
+        SpinnerValueFactory<Integer> paperValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,30,1);
+        this.paperSpinner.setValueFactory(paperValueFactory);
     }
 }
 
