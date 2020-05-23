@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.Case;
 import model.CaseList;
 
 import java.io.IOException;
@@ -108,7 +107,7 @@ public class SetupController{
         }
     }
 
-    void startCases(ActionEvent event) throws IOException{
+    private void startCases(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("../view/Case.fxml"));
         AnchorPane root = loader.load();

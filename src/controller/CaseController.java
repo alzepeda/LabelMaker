@@ -37,7 +37,7 @@ public class CaseController{
         initializeChoiceBox();
     }
 
-    void updateCaseLabel(){
+    private void updateCaseLabel(){
         if(CaseList.caseNumber < 10) {
             caseLabel.setText(CaseList.seriesAndYear + "-000" +CaseList.caseNumber);
         }else if(CaseList.caseNumber < 100) {
@@ -49,14 +49,14 @@ public class CaseController{
         }
     }
 
-    void initializeSpinners(){
+    private void initializeSpinners(){
         SpinnerValueFactory<Integer> containerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,30,1);
         this.containerSpinner.setValueFactory(containerValueFactory);
         SpinnerValueFactory<Integer> paperValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,30,1);
         this.paperSpinner.setValueFactory(paperValueFactory);
     }
 
-    void initializeChoiceBox(){
+    private void initializeChoiceBox(){
         slidesPerCassetteChoiceBox.getItems().addAll("1","2","3","6");
         slidesPerCassetteChoiceBox.setValue("1");
     }

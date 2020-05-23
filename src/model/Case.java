@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.io.*;
 
 public class Case {
-    Container[] containers;
+    public Container[] containers;
     public int caseNumber, papers, containerAmount, slidesPerCassette;
     public String patient, seriesAndYear;
 
@@ -17,6 +17,8 @@ public class Case {
         this.slidesPerCassette = slidesPerCassette;
         this.patient = patient;
         this.seriesAndYear = seriesAndYear;
+
+        //will contain container objects each of which have an array of casette objects each of which have an array of slide objects
         containers = new Container[containerAmount];
     }
 

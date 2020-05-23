@@ -9,10 +9,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainApp extends Application {
-    private AnchorPane root;
 
     @Override
     public void start(Stage primaryStage) throws IOException{
+        AnchorPane root;
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("../view/Setup.fxml"));
         root = loader.load();
