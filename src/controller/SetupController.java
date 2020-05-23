@@ -12,6 +12,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Case;
+import model.CaseList;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -64,9 +65,9 @@ public class SetupController{
             seriesAndYear = seriesAndYearTextField.getText();
             try{
                 initialCaseNumber = Integer.parseInt(initialCaseNumberTextField.getText());
-                Case.seriesAndYear = seriesAndYear;
-                Case.caseNumber = initialCaseNumber;
-                System.out.println(Case.seriesAndYear + "-" + Case.caseNumber);
+                CaseList.seriesAndYear = seriesAndYear;
+                CaseList.caseNumber = initialCaseNumber;
+                System.out.println(CaseList.seriesAndYear + "-" + CaseList.caseNumber);
                 startCases(event);
             }catch(NumberFormatException e){
                 System.out.println("Error: "+ e.getMessage());
@@ -98,10 +99,11 @@ public class SetupController{
                     seriesAndYear += "A";
                 }
             }
+            //sets the series and year to be used for the next few cases
             seriesAndYear += Calendar.getInstance().get(Calendar.YEAR)%100;
-            Case.seriesAndYear = seriesAndYear;
-            initialCaseNumber = Case.getCaseNumber(seriesAndYear);
-            Case.caseNumber = initialCaseNumber;
+            CaseList.seriesAndYear = seriesAndYear;
+            //uses the above series and year to determine the initial case number
+            CaseList.caseNumber = CaseList.getInitialCaseNumber();
             startCases(event);
         }
     }
