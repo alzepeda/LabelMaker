@@ -1,9 +1,9 @@
 package model;
 
 public class Container {
-    Casette[] casettes;
+    public Cassette[] cassettes;
 
-    public Container(int casetteAmount){
-        casettes = new Casette[casetteAmount];
+    public Container(int cassetteAmount){
+        cassettes = new Cassette[cassetteAmount];
     }
 }

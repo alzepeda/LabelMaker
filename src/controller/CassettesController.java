@@ -1,12 +1,21 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import model.Case;
 import model.CaseList;
+import model.Container;
+
+import javafx.event.ActionEvent;
+import java.io.IOException;
 
 public class CassettesController {
     Spinner container1Spinner, container2Spinner, container3Spinner, container4Spinner, container5Spinner,
@@ -29,7 +38,8 @@ public class CassettesController {
         while(i < containerAmount && currentCase.containers[i] != null){
             i++;
         }
-        createTextInputs(i, containerAmount);
+        createCassetteLabels(i, containerAmount);
+        createCassetteSpinners(i,containerAmount);
     }
 
     private void updateCaseLabel(){
@@ -44,7 +54,7 @@ public class CassettesController {
         }
     }
 
-    private void createTextInputs(int startIndex, int goal){
+    private void createCassetteLabels(int startIndex, int goal){
         if(startIndex < 10) {
             switch (goal) {
                 default: ;
@@ -88,6 +98,10 @@ public class CassettesController {
                 case 21: cassettesPerContainerGrid.add(new Label("How many cassettes for container U?"), 0, 0);
             }
         }
+
+    }
+
+    private void createCassetteSpinners(int startIndex, int goal){
         if(goal-startIndex <10){
             switch(goal % 10){
                 case 9: container9Spinner = new Spinner();
@@ -151,5 +165,58 @@ public class CassettesController {
             cassettesPerContainerGrid.add(container1Spinner, 1, 0);
         }
 
+    }
+
+    public void nextButtonPushed(ActionEvent event) throws IOException {
+        Case currentCase = CaseList.list.get(CaseList.list.size()-1);
+        int containerAmount = currentCase.containerAmount;
+        int i = 0;
+        while(i < containerAmount && currentCase.containers[i] != null){
+            i++;
+        }
+        getSpinnerData(currentCase, i, containerAmount);
+
+        //call the cassette window again to gather new data or move on to the next step
+        if(containerAmount > i + 9){
+            //next view loaded and shown
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("../view/Cassettes.fxml"));
+            AnchorPane root = loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(root);
+
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        }else{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("../view/Slides.fxml"));
+            AnchorPane root = loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(root);
+
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        }
+    }
+
+    void getSpinnerData(Case currentCase, int startIndex, int goal){
+        int spinnersLeft = goal - startIndex;
+        switch(spinnersLeft){
+            default: ;
+            case 10: currentCase.containers[startIndex+9] = new Container((int)container10Spinner.getValue());
+            case 9: currentCase.containers[startIndex+8] = new Container((int)container9Spinner.getValue());
+            case 8: currentCase.containers[startIndex+7] = new Container((int)container8Spinner.getValue());
+            case 7: currentCase.containers[startIndex+6] = new Container((int)container7Spinner.getValue());
+            case 6: currentCase.containers[startIndex+5] = new Container((int)container6Spinner.getValue());
+            case 5: currentCase.containers[startIndex+4] = new Container((int)container5Spinner.getValue());
+            case 4: currentCase.containers[startIndex+3] = new Container((int)container4Spinner.getValue());
+            case 3: currentCase.containers[startIndex+2] = new Container((int)container3Spinner.getValue());
+            case 2: currentCase.containers[startIndex+1] = new Container((int)container2Spinner.getValue());
+            case 1: currentCase.containers[startIndex] = new Container((int)container1Spinner.getValue());
+        }
     }
 }

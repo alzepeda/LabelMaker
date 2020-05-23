@@ -1,5 +1,5 @@
 package model;
 
-public class Casette {
+public class Cassette {
     int[] slides;
 }
